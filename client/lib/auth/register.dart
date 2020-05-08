@@ -127,6 +127,7 @@ class _RegisterState extends State<Register> {
                     //width: 190,
                     margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
                             color: Colors.grey[300],

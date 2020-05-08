@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "378425060756",
+    "firebase_url": "https://sasto-bazaar.firebaseio.com",
+    "project_id": "sasto-bazaar",
+    "storage_bucket": "sasto-bazaar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378425060756:android:15b3e0c549caa26f1fb381",
+        "android_client_info": {
+          "package_name": "com.example.sasto_bazaar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378425060756-b4fg5hiio7kftr9uias2v63egq3taavb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sasto_bazaar",
+            "certificate_hash": "3db2990a0bf0758014b1ef50d75a1863c11fd1ef"
+          }
+        },
+        {
+          "client_id": "378425060756-q6f8kltbdodr33c00qjeb811ru34co50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEcbWvJub1Z7oKJDFVBs1JxqM4D23V82s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378425060756-q6f8kltbdodr33c00qjeb811ru34co50.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

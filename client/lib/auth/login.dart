@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../screen/home.dart';
 import './fbLogin.dart';
+import './googleLogin.dart';
 
 
 class Login extends StatefulWidget {
@@ -102,21 +103,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget loginButton(String path, var callBack) {
-    return (GestureDetector(
-      onTap: () {
-      callBack();
-      },
-      child: Container(
-        margin: const EdgeInsets.only(right: 15),
-        height: 35,
-        width: 35,
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: Image.asset(path),
-      ),
-    ));
-  }
+  
 
   void initState(){
     super.initState();
@@ -142,6 +129,7 @@ class _LoginState extends State<Login> {
             //width: 190,
             margin: const EdgeInsets.fromLTRB(10,40,10,0),
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey[300],
@@ -229,8 +217,7 @@ class _LoginState extends State<Login> {
               /*loginButton("assets/images/facebook_logo.png",
                   () => {loginWithFb(facebookLogin)})*/
                   FacebookButton(),
-              loginButton("assets/images/google_logo.png",
-                  () => {print("google clicked")})
+                  GoogleLogin(),
             ],
           ),
           Container(
