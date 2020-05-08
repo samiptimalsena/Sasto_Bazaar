@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../screen/home.dart';
+import './fbLogin.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class _LoginState extends State<Login> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   var _obscureText = true;
   var isLoading=false;
+
 
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
@@ -102,7 +105,7 @@ class _LoginState extends State<Login> {
   Widget loginButton(String path, var callBack) {
     return (GestureDetector(
       onTap: () {
-        callBack();
+      callBack();
       },
       child: Container(
         margin: const EdgeInsets.only(right: 15),
@@ -223,8 +226,9 @@ class _LoginState extends State<Login> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              loginButton("assets/images/facebook_logo.png",
-                  () => {print("facebook clicked")}),
+              /*loginButton("assets/images/facebook_logo.png",
+                  () => {loginWithFb(facebookLogin)})*/
+                  FacebookButton(),
               loginButton("assets/images/google_logo.png",
                   () => {print("google clicked")})
             ],
