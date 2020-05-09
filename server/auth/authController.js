@@ -3,6 +3,7 @@ const router = express.Router()
 const bodyParser = require("body-parser")
 
 const User = require("../model/user")
+const Social_User=require("../model/user_socialLogin")
 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
@@ -56,7 +57,31 @@ router.post('/login', (req, res) => {
         var token = jwt.sign({ id: user._id }, config.secret, {
             expiresIn: 86400
         });
-        res.status(200).send({ auth: true, token: token })
+        res.status(200).send({ auth: true, token: token,name:user.name })
+    })
+})
+
+router.get("/login_social",(req,res)=>{
+    res.status(200).send("social login begins")
+})
+
+router.post("/login_social",(req,res)=>{
+    Social_User.findOne({email:req.body.email},(err,user)=>{
+        if(err) return res.status(500).send("Error on the server")
+
+        if(user) return res.status(200).send("User already exists")
+
+        if(!user){
+            Social_User.create({
+                name:req.body.name,
+                email:req.body.email
+            },(err,new_user)=>{
+                if(err) return res.status(500).send("There was problem registering the user")
+                if(new_user) return res.status(200).send({message:"User added successfully"})
+            }
+            
+            )
+        }
     })
 })
 

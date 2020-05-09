@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../auth/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class Home extends StatefulWidget{
   @override
@@ -11,12 +12,14 @@ class Home extends StatefulWidget{
 
 class _HomeState extends State<Home>{
   SharedPreferences sharedPreferences;
-  String userName="";
+  String userName="achha";
+  final facebookLogin=FacebookLogin();
   GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
     'email'
   ],
 );
+
   
   getUserName()async{
     sharedPreferences=await SharedPreferences.getInstance();
@@ -39,7 +42,12 @@ class _HomeState extends State<Home>{
           RaisedButton(child: Text("Logout"),
           onPressed: () async{
            sharedPreferences = await SharedPreferences.getInstance();
-           _googleSignIn.disconnect();
+           if(sharedPreferences.getString("method")=="fb_login"){
+           facebookLogin.logOut();
+           }
+           if(sharedPreferences.getString("method")=="google_login"){
+              _googleSignIn.disconnect();
+           }
            sharedPreferences.clear();
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context)=>Login()), (route) => false);
           },)

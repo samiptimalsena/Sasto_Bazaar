@@ -37,6 +37,8 @@ class _LoginState extends State<Login> {
     var getData=json.decode(response.body);
     if(getData["token"]!=null){
       sharedPreferences.setString("token", getData["token"]);
+      sharedPreferences.setString("userName",getData["name"]);
+      sharedPreferences.setString("method","simple_login");
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context)=>Home()), (route) => false);
     }else {
       setState(() {

@@ -24,6 +24,7 @@ class _GoogleLoginState extends State<GoogleLogin>{
       if(_googleSignIn.currentUser.id.isNotEmpty){
       sharedPreferences.setString("token", _googleSignIn.currentUser.id);
       sharedPreferences.setString("userName", _googleSignIn.currentUser.displayName);
+      sharedPreferences.setString("method", "google_login");
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context)=>Home()), (route) => false);
       
   }}

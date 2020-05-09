@@ -26,8 +26,11 @@ class _FacebookButtonState extends State<FacebookButton>{
         final token=result.accessToken.token;
         final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=$token');
         final profile=json.decode(graphResponse.body);
+        Map data={"email":profile["email"],"name":profile["name"]};
+        await http.post("http://192.168.137.1:3000/auth/login_social",body:data);
         sharedPreferences.setString("token", token);
         sharedPreferences.setString("userName", profile["name"]);
+        sharedPreferences.setString("method", "fb_login");
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context)=>Home()), (route) => false);
         break;
       case FacebookLoginStatus.cancelledByUser:

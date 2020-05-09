@@ -30,9 +30,20 @@ class _RegisterState extends State<Register> {
     var getData = json.decode(response.body);
     if (getData["token"] != null) {
       sharedPreferences.setString("token", getData['token']);
+      sharedPreferences.setString("userName", name);
+      sharedPreferences.setString("method", "simple_login");
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => Home()),
           (Route<dynamic> route) => false);
+    }else{
+      setState(() {
+        _isLoading = false;
+        this.email.text="";
+      });
+      _scaffoldKey.currentState.showSnackBar(new SnackBar(
+        content: new Text("Email already exists. Try with new one."),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 
