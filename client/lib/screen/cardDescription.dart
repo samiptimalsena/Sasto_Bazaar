@@ -203,8 +203,8 @@ class _CardDescriptionState extends State<CardDesciption> {
                           _scale > 1.0 ? _scale : 1.0,
                           _scale > 1.0 ? _scale : 1.0)),
                       origin: offset,
-                      child: Image.asset(
-                        "assets/images/sample.jpg",
+                      child: Image.network(
+                        "https://drive.google.com/uc?export=view&id=1mfvB7YXPpaNzQBoX5OEgX_tJhsNBQ5JM",
                         fit: BoxFit.fill,
                       ))),
             ),

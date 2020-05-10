@@ -96,8 +96,8 @@ class _HomeState extends State<Home> {
                         topRight: const Radius.circular(10)),
                     child: SizedBox(
                         height: 155,
-                        child: Image.asset(
-                          "assets/images/sample.jpg",
+                        child: Image.network(
+                          "https://drive.google.com/uc?export=view&id=1mfvB7YXPpaNzQBoX5OEgX_tJhsNBQ5JM",
                           fit: BoxFit.cover,
                         )),
                   ),
