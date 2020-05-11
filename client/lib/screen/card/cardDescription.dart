@@ -3,6 +3,8 @@ import 'package:vector_math/vector_math_64.dart' show Vector3;
 import 'package:google_fonts/google_fonts.dart';
 
 class CardDesciption extends StatefulWidget {
+  final product;
+  CardDesciption(this.product);
   @override
   _CardDescriptionState createState() => _CardDescriptionState();
 }
@@ -11,6 +13,7 @@ class _CardDescriptionState extends State<CardDesciption> {
   Offset offset;
   double _scale = 1.0;
   int count=1;
+  var productList;
 
   Color mButtonFillColor = Colors.white,
       lButtonFillColor = Colors.black,
@@ -157,6 +160,12 @@ class _CardDescriptionState extends State<CardDesciption> {
   }
 
   @override
+  void initState(){
+    super.initState();
+    productList=widget.product;
+  }
+
+  @override
   Widget build(BuildContext context) {
     var ht = MediaQuery.of(context).size.height;
     return (Scaffold(
@@ -204,7 +213,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                           _scale > 1.0 ? _scale : 1.0)),
                       origin: offset,
                       child: Image.network(
-                        "https://drive.google.com/uc?export=view&id=1mfvB7YXPpaNzQBoX5OEgX_tJhsNBQ5JM",
+                        productList.imageURL,
                         fit: BoxFit.fill,
                       ))),
             ),
@@ -213,13 +222,13 @@ class _CardDescriptionState extends State<CardDesciption> {
                 children: <Widget>[
                   Container(
                       margin: const EdgeInsets.only(top: 15),
-                      child: Text("France Authentic",
+                      child: Text(productList.productName,
                           style: GoogleFonts.roboto(
                               textStyle: TextStyle(
                                   fontSize: 28, fontWeight: FontWeight.bold)))),
                   Container(
                     margin: const EdgeInsets.only(top: 5),
-                    child: Text("NIKE",
+                    child: Text(productList.companyName.toUpperCase(),
                         style: TextStyle(
                             color: Colors.grey[400],
                             fontWeight: FontWeight.w500,
@@ -228,7 +237,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                   Container(
                     margin: const EdgeInsets.only(top: 15),
                     child: Text(
-                      "\$30",
+                      "\$"+productList.price.toString(),
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
