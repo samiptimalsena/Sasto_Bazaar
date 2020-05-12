@@ -6,6 +6,8 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import '../utils/getProduct.dart';
 import './screenUtils/banner.dart';
 import "dart:math";
+import 'package:provider/provider.dart';
+import '../utils/cardProvider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -43,9 +45,9 @@ class _HomeState extends State<Home> {
     getProduct().then((result) {
       setState(() {
         productList = result;
-        //newArrivalProductList=generateList(result);
-        //bestSellingProductList=generateList(result);
-        //featuredProductList=generateList(result);
+        newArrivalProductList=generateList(result);
+        bestSellingProductList=generateList(result);
+        featuredProductList=generateList(result);
       });
     });
     
@@ -59,14 +61,20 @@ class _HomeState extends State<Home> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           actions: <Widget>[
-            IconButton(
+            Consumer<CartModel>(
+              builder: (context,cart,child){
+                return IconButton(
               icon: Icon(
                 Icons.shopping_cart,
                 size: 25,
               ),
               onPressed: (){
+              //cart.add(72);
+              print(cart.items);
               },
-            ),
+            );
+              },
+            )
           ],
         ),
         drawer: Drawer(
@@ -93,13 +101,12 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-        body: //newArrivalProductList.length == 0 || bestSellingProductList.length==0|| featuredProductList.length==0
-           productList.length==0 ? Center(child: CircularProgressIndicator())
+        body: newArrivalProductList.length == 0 || bestSellingProductList.length==0|| featuredProductList.length==0 ? Center(child: CircularProgressIndicator())
             : ListView(
                 children: <Widget>[
-                  ImageBanner(productList),
-                  //ImageBanner(bestSellingProductList),
-                  //ImageBanner(featuredProductList)
+                  ImageBanner(newArrivalProductList,"New Arrival"),
+                  //ImageBanner(bestSellingProductList,"Best Selling"),
+                  //ImageBanner(featuredProductList,"Featured")
 
                 ],
               )));

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../screen/home.dart';
 import './fbLogin.dart';
 import './googleLogin.dart';
+import './register.dart';
 
 
 class Login extends StatefulWidget {
@@ -233,7 +234,7 @@ class _LoginState extends State<Login> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/register');
+                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>Register()));
                   },
                   child: Container(
                     child: Text(

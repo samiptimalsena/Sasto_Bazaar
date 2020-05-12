@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../utils/cardProvider.dart';
 
 class CardDesciption extends StatefulWidget {
   final product;
@@ -287,19 +289,24 @@ class _CardDescriptionState extends State<CardDesciption> {
             Container(
               margin: const EdgeInsets.only(top:10),
               alignment: Alignment.center,
-              child: RaisedButton.icon(
+              child: Consumer<CartModel>(
+                builder: (context,cart,child){
+                 return RaisedButton.icon(
                 elevation: 0.8,
                 shape:RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16)
                 ) ,
                 onPressed: (){
-
+                  cart.add(productList);
+                  print("added");
                 },
                 icon: Icon(Icons.add_shopping_cart),
                 label: Text("Add to Cart"),
                 textColor: Colors.white,
                 color: Colors.orange[800],
-              ),
+              );
+                },
+              )
             )
           ],
         )));
