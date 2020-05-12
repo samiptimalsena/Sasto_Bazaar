@@ -3,6 +3,8 @@ import 'package:vector_math/vector_math_64.dart' show Vector3;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../utils/cardProvider.dart';
+import '../screenUtils/appBarIcon.dart';
+import '../confirmation.dart';
 
 class CardDesciption extends StatefulWidget {
   final product;
@@ -14,8 +16,9 @@ class CardDesciption extends StatefulWidget {
 class _CardDescriptionState extends State<CardDesciption> {
   Offset offset;
   double _scale = 1.0;
-  int count=1;
+  int count = 1;
   var productList;
+  String sizeSelected = "L";
 
   Color mButtonFillColor = Colors.white,
       lButtonFillColor = Colors.black,
@@ -68,6 +71,7 @@ class _CardDescriptionState extends State<CardDesciption> {
           onPressed: () {
             setState(() {
               if (text == "S") {
+                sizeSelected = "S";
                 sButtonFillColor = Colors.black;
                 sButtonBorderColor = Colors.black;
                 sButtonTextColor = Colors.grey[50];
@@ -79,6 +83,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                     xlButtonTextColor = xxlButtonTextColor = Colors.grey[400];
               }
               if (text == "M") {
+                sizeSelected = "M";
                 mButtonFillColor = Colors.black;
                 mButtonBorderColor = Colors.black;
                 mButtonTextColor = Colors.grey[50];
@@ -90,6 +95,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                     xlButtonTextColor = xxlButtonTextColor = Colors.grey[400];
               }
               if (text == "L") {
+                sizeSelected = "L";
                 lButtonFillColor = Colors.black;
                 lButtonBorderColor = Colors.black;
                 lButtonTextColor = Colors.grey[50];
@@ -101,6 +107,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                     xlButtonTextColor = xxlButtonTextColor = Colors.grey[400];
               }
               if (text == "XL") {
+                sizeSelected = "XL";
                 xlButtonFillColor = Colors.black;
                 xlButtonBorderColor = Colors.black;
                 xlButtonTextColor = Colors.grey[50];
@@ -112,6 +119,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                     sButtonTextColor = xxlButtonTextColor = Colors.grey[400];
               }
               if (text == "XXL") {
+                sizeSelected = "XXL";
                 xxlButtonFillColor = Colors.black;
                 xxlButtonBorderColor = Colors.black;
                 xxlButtonTextColor = Colors.grey[50];
@@ -139,32 +147,37 @@ class _CardDescriptionState extends State<CardDesciption> {
     );
   }
 
-  Widget quantityButton(var icon){
+  Widget quantityButton(var icon) {
     return Container(
-      margin: const EdgeInsets.only(left:10),
-      color: icon==Icons.remove?Colors.grey[100]:Colors.grey[200],
-      child:SizedBox(
-      height: 40,width: 40,
-    child: IconButton(
-      onPressed: (){
-        if(count>=1 && icon==Icons.add ){
-          setState(() {
-            count++;
-          });
-        }else if(count>1 && icon==Icons.remove){
-          setState(() {
-            count--;
-          });
-        }
-      },
-      icon: Icon(icon,color:icon==Icons.remove?Colors.grey[350]:Colors.grey[500],),
-    )));
+        margin: const EdgeInsets.only(left: 10),
+        color: icon == Icons.remove ? Colors.grey[100] : Colors.grey[200],
+        child: SizedBox(
+            height: 40,
+            width: 40,
+            child: IconButton(
+              onPressed: () {
+                if (count >= 1 && icon == Icons.add) {
+                  setState(() {
+                    count++;
+                  });
+                } else if (count > 1 && icon == Icons.remove) {
+                  setState(() {
+                    count--;
+                  });
+                }
+              },
+              icon: Icon(
+                icon,
+                color:
+                    icon == Icons.remove ? Colors.grey[350] : Colors.grey[500],
+              ),
+            )));
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    productList=widget.product;
+    productList = widget.product;
   }
 
   @override
@@ -177,12 +190,11 @@ class _CardDescriptionState extends State<CardDesciption> {
           backgroundColor: Colors.transparent,
           actions: <Widget>[
             IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                size: 25,
-              ),
-              onPressed: () {},
-            ),
+              icon: myAppBarIcon(),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder:(BuildContext context)=>Confirmation()));
+              },
+            )
           ],
         ),
         body: ListView(
@@ -239,7 +251,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                   Container(
                     margin: const EdgeInsets.only(top: 15),
                     child: Text(
-                      "\$"+productList.price.toString(),
+                      "\$" + productList.price.toString(),
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -259,12 +271,17 @@ class _CardDescriptionState extends State<CardDesciption> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top:20),
+              margin: const EdgeInsets.only(top: 20),
               child: Row(
                 children: <Widget>[
                   Container(
                       margin: const EdgeInsets.only(right: 10, left: 10),
-                      child: Text("Size",style: GoogleFonts.roboto(textStyle:TextStyle(fontSize: 16,fontWeight:FontWeight.bold)),)),
+                      child: Text(
+                        "Size",
+                        style: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                      )),
                   sizeButton("S"),
                   sizeButton("M"),
                   sizeButton("L"),
@@ -274,40 +291,53 @@ class _CardDescriptionState extends State<CardDesciption> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top:25),
-              child: Row(children: <Widget>[
-                Container(
+              margin: const EdgeInsets.only(top: 25),
+              child: Row(
+                children: <Widget>[
+                  Container(
                       margin: const EdgeInsets.only(right: 15, left: 10),
-                      child: Text("Qty",style: GoogleFonts.roboto(textStyle:TextStyle(fontSize: 16,fontWeight:FontWeight.bold)),)),
-                quantityButton(Icons.remove),
-                Container(
-                  margin: const EdgeInsets.only(left:20,right:10),
-                  child: Text("$count",style: GoogleFonts.roboto(textStyle:TextStyle(fontSize: 20,fontWeight:FontWeight.w500)))),
-                quantityButton(Icons.add)
-              ],),
+                      child: Text(
+                        "Qty",
+                        style: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                      )),
+                  quantityButton(Icons.remove),
+                  Container(
+                      margin: const EdgeInsets.only(left: 20, right: 10),
+                      child: Text("$count",
+                          style: GoogleFonts.roboto(
+                              textStyle: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500)))),
+                  quantityButton(Icons.add)
+                ],
+              ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top:10),
-              alignment: Alignment.center,
-              child: Consumer<CartModel>(
-                builder: (context,cart,child){
-                 return RaisedButton.icon(
-                elevation: 0.8,
-                shape:RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)
-                ) ,
-                onPressed: (){
-                  cart.add(productList);
-                  print("added");
-                },
-                icon: Icon(Icons.add_shopping_cart),
-                label: Text("Add to Cart"),
-                textColor: Colors.white,
-                color: Colors.orange[800],
-              );
-                },
-              )
-            )
+            Builder(builder: (BuildContext context) {
+              return Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  alignment: Alignment.center,
+                  child: Consumer<CartModel>(
+                    builder: (context, cart, child) {
+                      return RaisedButton.icon(
+                        elevation: 0.8,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        onPressed: () {
+                          cart.add(
+                              OrderedProduct(productList, sizeSelected, count));
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text("Product added to cart"))
+                          );
+                        },
+                        icon: Icon(Icons.add_shopping_cart),
+                        label: Text("Add to Cart"),
+                        textColor: Colors.white,
+                        color: Colors.orange[800],
+                      );
+                    },
+                  ));
+            })
           ],
         )));
   }

@@ -5,9 +5,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import '../utils/getProduct.dart';
 import './screenUtils/banner.dart';
+import './screenUtils/appBarIcon.dart';
 import "dart:math";
-import 'package:provider/provider.dart';
-import '../utils/cardProvider.dart';
+import './confirmation.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -33,9 +33,10 @@ class _HomeState extends State<Home> {
     });
   }
 
-  List<Product> generateList(var list){
+  List<Product> generateList(var list) {
     final _random = new Random();
-    List<Product> sample=new List<Product>.generate(4,(i)=>list[_random.nextInt(list.length)]);
+    List<Product> sample = new List<Product>.generate(
+        4, (i) => list[_random.nextInt(list.length)]);
     return sample;
   }
 
@@ -45,12 +46,11 @@ class _HomeState extends State<Home> {
     getProduct().then((result) {
       setState(() {
         productList = result;
-        newArrivalProductList=generateList(result);
-        bestSellingProductList=generateList(result);
-        featuredProductList=generateList(result);
+        newArrivalProductList = generateList(result);
+        bestSellingProductList = generateList(result);
+        featuredProductList = generateList(result);
       });
     });
-    
   }
 
   @override
@@ -61,18 +61,11 @@ class _HomeState extends State<Home> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           actions: <Widget>[
-            Consumer<CartModel>(
-              builder: (context,cart,child){
-                return IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                size: 25,
-              ),
-              onPressed: (){
-              //cart.add(72);
-              print(cart.items);
-              },
-            );
+            IconButton(
+              icon: myAppBarIcon(),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => Confirmation()));
               },
             )
           ],
@@ -101,13 +94,15 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-        body: newArrivalProductList.length == 0 || bestSellingProductList.length==0|| featuredProductList.length==0 ? Center(child: CircularProgressIndicator())
+        body: newArrivalProductList.length == 0 ||
+                bestSellingProductList.length == 0 ||
+                featuredProductList.length == 0
+            ? Center(child: CircularProgressIndicator())
             : ListView(
                 children: <Widget>[
-                  ImageBanner(newArrivalProductList,"New Arrival"),
+                  ImageBanner(newArrivalProductList, "New Arrival"),
                   //ImageBanner(bestSellingProductList,"Best Selling"),
                   //ImageBanner(featuredProductList,"Featured")
-
                 ],
               )));
   }
