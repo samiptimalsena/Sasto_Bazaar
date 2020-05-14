@@ -19,7 +19,7 @@ class Product{
 }
 
 Future<List<Product>> getProduct()async{
-    var response=await http.get("http://192.168.137.1:3000/product/getProduct");
+    var response=await http.get("https://sastobazaar.herokuapp.com/product/getProduct");
     var getData=json.decode(response.body) as List;
     List<Product> productList=getData.map((data)=>Product.fromJson(data)).toList();
     return productList;

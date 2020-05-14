@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../screen/home.dart';
+import 'package:http/http.dart' as http;
 
 class GoogleLogin extends StatefulWidget{
   @override
@@ -22,6 +23,8 @@ class _GoogleLoginState extends State<GoogleLogin>{
     sharedPreferences=await SharedPreferences.getInstance();
       await _googleSignIn.signIn() ;
       if(_googleSignIn.currentUser.id.isNotEmpty){
+      Map data={"email":_googleSignIn.currentUser.email,"name":_googleSignIn.currentUser.displayName};
+      await http.post("https://sastobazaar.herokuapp.com/auth/login_social",body:data);
       sharedPreferences.setString("token", _googleSignIn.currentUser.id);
       sharedPreferences.setString("userName", _googleSignIn.currentUser.displayName);
       sharedPreferences.setString("method", "google_login");

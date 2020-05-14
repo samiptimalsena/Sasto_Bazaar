@@ -270,7 +270,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                 ],
               ),
             ),
-            Container(
+           productList.gender!="none"? Container(
               margin: const EdgeInsets.only(top: 20),
               child: Row(
                 children: <Widget>[
@@ -289,7 +289,7 @@ class _CardDescriptionState extends State<CardDesciption> {
                   sizeButton("XXL")
                 ],
               ),
-            ),
+            ):Container(),
             Container(
               margin: const EdgeInsets.only(top: 25),
               child: Row(

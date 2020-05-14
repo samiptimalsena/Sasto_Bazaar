@@ -26,7 +26,7 @@ class _RegisterState extends State<Register> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {"email": email, "password": password, "name": name};
     var response =
-        await http.post("http://192.168.137.1:3000/auth/register", body: data);
+        await http.post("https://sastobazaar.herokuapp.com/auth/register", body: data);
     var getData = json.decode(response.body);
     if (getData["token"] != null) {
       sharedPreferences.setString("token", getData['token']);

@@ -27,7 +27,7 @@ class _FacebookButtonState extends State<FacebookButton>{
         final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=$token');
         final profile=json.decode(graphResponse.body);
         Map data={"email":profile["email"],"name":profile["name"]};
-        await http.post("http://192.168.137.1:3000/auth/login_social",body:data);
+        await http.post("https://sastobazaar.herokuapp.com/auth/login_social",body:data);
         sharedPreferences.setString("token", token);
         sharedPreferences.setString("userName", profile["name"]);
         sharedPreferences.setString("method", "fb_login");

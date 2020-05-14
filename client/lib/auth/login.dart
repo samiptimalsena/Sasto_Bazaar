@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
   signInWithEmail(String email,String password) async{
     sharedPreferences=await SharedPreferences.getInstance();
     Map data={"email":email,"password":password};
-    var response=await http.post("http://192.168.137.1:3000/auth/login",body:data);
+    var response=await http.post("https://sastobazaar.herokuapp.com/auth/login",body:data);
     var getData=json.decode(response.body);
     if(getData["token"]!=null){
       sharedPreferences.setString("token", getData["token"]);

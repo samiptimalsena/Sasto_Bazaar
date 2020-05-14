@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../card/productCard.dart';
+import '../viewAll.dart';
 
 class ImageBanner extends StatelessWidget{
-  final productList,name;
-  ImageBanner(this.productList,this.name);
+  final productList,name,totalProductList;
+  ImageBanner(this.productList,this.name,this.totalProductList);
   @override
   Widget build(BuildContext context){
     return(
@@ -22,12 +23,17 @@ class ImageBanner extends StatelessWidget{
                                   fontSize: 22,
                                   fontWeight: FontWeight.w400)),
                         ),
-                        Text("See all",
-                            style: GoogleFonts.roboto(
-                                textStyle: TextStyle(
-                                    color: Colors.orange[800],
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600)))
+                        GestureDetector(
+                          onTap: (){
+                           Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>ViewAll(totalProductList,"Our Products")));
+                          },
+                                                  child: Text("See all",
+                              style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                      color: Colors.orange[800],
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600))),
+                        )
                       ],
                     ),
                   ),
