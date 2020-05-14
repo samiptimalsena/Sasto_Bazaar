@@ -185,8 +185,8 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   ImageBanner(
                       newArrivalProductList, "New Arrival", productList),
-                  //ImageBanner(bestSellingProductList,"Best Selling",productList),
-                  //ImageBanner(featuredProductList,"Featured",productList)
+                  ImageBanner(bestSellingProductList,"Best Selling",productList),
+                  ImageBanner(featuredProductList,"Featured",productList)
                 ],
               )));
   }
